@@ -1,0 +1,271 @@
+# Beam envelope simulation.  
+# Beam envelope simulation.  
+sim_type = "MomentMatrix"; 
+ 
+# Global parameters.  
+ 
+AMU = 931494320.0; # Atomic mass unit [eV/c^2].  
+ 
+IonZ = 0.225225; # Charge state for Ar_39.  
+#IonZ = 0.225/1.0; # Charge state for Ar_39.  
+ 
+IonEs = 931494320.0; # Nucleon mass [eV/u].  
+ 
+IonEk = 12000.0; # Kinetic energy at LS1 entrance [eV/u].  
+ 
+#IonEk = 11974; # Kinetic energy at LS1 entrance [eV/u].  
+#IonEk = 12100; # Kinetic energy at LS1 entrance [eV/u].  
+ 
+ 
+IonW = 931506320.0; # Total energy [eV/u].  
+ 
+# Define Initial Conditions for the Charge States.  
+# Units are: [mm, rad, mm, rad, rad, MeV/u]  
+ 
+IonChargeStates = [0.22522522522522523]; 
+#IonChargeStates = [9/40];  
+NCharge = [10111.0]; 
+HdipoleFitMode = "1.0"; 
+ 
+#cstate = 0;  
+ 
+# final number should be 1.  
+ 
+BaryCenter0 = [-35.195239373670894, 0.024690692358449003, -7.7994619223631325, 0.015321700569750858, -14.71322933771116, 0.0, 1.0]; 
+ 
+ 
+# Define beam envelope parameters.  
+ 
+ 
+S0 = [
+    247.62610216392574, -0.30200966311675737, 7.885408353817223, 0.028424388441259038, -22.41035991155978, -2.3088409456725305e-09, 0.0, 
+    -0.3020096631167566, 0.000375845712454162, -0.006913378640283803, -4.3562115699751416e-05, 0.06515519649434766, 2.122237869401546e-12, 0.0, 
+    7.8854083538176525, -0.006913378640284077, 46.72456706256989, -0.09163696425168563, -13.952488268627155, -6.694912225330157e-11, 0.0, 
+    0.028424388441258455, -4.35621156997511e-05, -0.0916369642516856, 0.0001922552298608255, 0.018664301567244013, -7.33901773791027e-15, 0.0, 
+    -22.410359911559226, 0.0651551964943472, -13.952488268627288, 0.018664301567244197, 139.84985552865263, -4.557399272796263e-10, 0.0, 
+    -2.3088409456725305e-09, 2.122237869401546e-12, -6.694912225330157e-11, -7.33901773791027e-15, -4.557399272796263e-10, 4.74033906155e-15, 0.0, 
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 
+ 
+S: source, matrix_variable = "S", vector_variable = "BaryCenter"; 
+ 
+#"element_strength_1780415.xlsx"  
+#quad appert. R (m) 0.0746  
+#effectvie length (m) 0.2052  
+#dimad length (m) 0.2068 Orignal effective length simulations. This value is used in DIMAD  
+ 
+ 
+#Eng_Data_Dir = dir("data");  
+# Artemis lattice  
+# hard edge model: Bs = ks*2.0*(Brho), Brho = 0.139955/2.0  
+ 
+
+#trg_drift_0: drift, L = 0.7404575, aper = 0.075;
+#FE_SRC1:DCHV_D0695: orbtrim;
+#trg_drift_1: drift, L = 0.459767, aper = 0.075;
+FE_SRC1:SOLR_D0704: solenoid, aper = 0.075, B = 0.0, L = 0.4; 
+trg_drift_2: drift, aper = 0.075, L = 0.34; 
+FE_SRC1:DCHV_D0709: orbtrim; 
+trg_drift_3: drift, aper = 0.075, L = 0.235; 
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! D5 magnet 
+FE_SCS1:DH_D0717_1: sbend, phi = 18.0, bg = 0.00507595, K = -2.220661, L = 0.2, aper = 0.075, phi2 = 0.0, phi1 = 0.0; 
+FE_SCS1:DH_D0717_2: sbend, phi = 18.0, bg = 0.00507595, K = -2.220661, L = 0.2, aper = 0.075, phi2 = 0.0, phi1 = 0.0; 
+FE_SCS1:DH_D0717_3: sbend, phi = 18.0, bg = 0.00507595, K = -2.220661, L = 0.2, aper = 0.075, phi2 = 0.0, phi1 = 0.0; 
+FE_SCS1:DH_D0717_4: sbend, phi = 18.0, bg = 0.00507595, K = -2.220661, L = 0.2, aper = 0.075, phi2 = 0.0, phi1 = 0.0; 
+FE_SCS1:DH_D0717_5: sbend, phi = 18.0, bg = 0.00507595, K = -2.220661, L = 0.2, aper = 0.075, phi2 = 0.0, phi1 = 0.0; 
+trg_drift_4: drift, aper = 0.075, L = 0.1623; 
+FE_SCS1:DCHV_D0723: orbtrim; 
+trg_drift_5: drift, aper = 0.075, L = 0.1854; 
+FE_SCS1:QHE_D0726: equad, aper = 0.075, L = 0.2046, radius = 0.0746, V = 3071.59; 
+trg_drift_6: drift, aper = 0.075, L = 0.1304; 
+FE_SCS1:QVE_D0730: equad, aper = 0.075, L = 0.2046, radius = 0.0746, V = -1863.87; 
+trg_drift_7: drift, aper = 0.075, L = 0.1304; 
+FE_SCS1:QHE_D0733: equad, aper = 0.075, L = 0.2046, radius = 0.0746, V = 48.96; 
+trg_drift_8: drift, aper = 0.075, L = 0.22591198; 
+#Four jaw collimator
+trg_drift_9: drift, aper = 0.075, L = 0.13911; 
+#D738_faraday cup2
+trg_drift_10: drift, aper = 0.075, L = 0.18034; 
+#D739_viewer
+#D739_emittance scanner_x_y
+trg_drift_11: drift, aper = 0.075, L = 0.21003802; 
+FE_SCS1:QHE_D0743: equad, aper = 0.075, L = 0.2046, radius = 0.0746, V = 48.96; 
+trg_drift_12: drift, aper = 0.075, L = 0.1304; 
+FE_SCS1:QVE_D0746: equad, aper = 0.075, L = 0.2046, radius = 0.0746, V = -1863.87; 
+trg_drift_13: drift, aper = 0.075, L = 0.1304; 
+FE_SCS1:QHE_D0749: equad, aper = 0.075, L = 0.2046, radius = 0.0746, V = 3071.59; 
+trg_drift_14: drift, aper = 0.075, L = 0.3477; 
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! D5 magnet 
+FE_LEBT:DH_D0759_1: sbend, phi = 18.0, bg = 0.00507595, K = -2.220661, L = 0.2, aper = 0.075, phi2 = 0.0, phi1 = 0.0; 
+FE_LEBT:DH_D0759_2: sbend, phi = 18.0, bg = 0.00507595, K = -2.220661, L = 0.2, aper = 0.075, phi2 = 0.0, phi1 = 0.0; 
+FE_LEBT:DH_D0759_3: sbend, phi = 18.0, bg = 0.00507595, K = -2.220661, L = 0.2, aper = 0.075, phi2 = 0.0, phi1 = 0.0; 
+FE_LEBT:DH_D0759_4: sbend, phi = 18.0, bg = 0.00507595, K = -2.220661, L = 0.2, aper = 0.075, phi2 = 0.0, phi1 = 0.0; 
+FE_LEBT:DH_D0759_5: sbend, phi = 18.0, bg = 0.00507595, K = -2.220661, L = 0.2, aper = 0.075, phi2 = 0.0, phi1 = 0.0; 
+trg_drift_15: drift, aper = 0.075, L = 0.2227; 
+FE_LEBT:QVE_D0767: equad, aper = 0.075, L = 0.2046, radius = 0.0746, V = -50.0; 
+trg_drift_16: drift, aper = 0.075, L = 0.1304; 
+FE_LEBT:QHE_D0770: equad, aper = 0.075, L = 0.2046, radius = 0.0746, V = 3833.0; 
+trg_drift_17: drift, aper = 0.075, L = 0.1952; 
+FE_LEBT:DCHV_D0773: orbtrim; 
+trg_drift_18: drift, aper = 0.075, L = 0.1952; 
+FE_LEBT:QHE_D0776: equad, aper = 0.075, L = 0.2046, radius = 0.0746, V = -4142.0; 
+trg_drift_19: drift, aper = 0.075, L = 0.1304; 
+FE_LEBT:QVE_D0780: equad, aper = 0.075, L = 0.2046, radius = 0.0746, V = 2600.0; 
+trg_drift_20: drift, aper = 0.075, L = 0.189285; 
+#D783_profile monitor
+FE_LEBT:PM_D0783: bpm; 
+trg_drift_21: drift, aper = 0.075, L = 0.218415; 
+FE_LEBT:SOLR_D0787: solenoid, aper = 0.075, B = -0.23105, L = 0.4; 
+trg_drift_22: drift, aper = 0.075, L = 0.12065; 
+FE_LEBT:DCHV_D0790: orbtrim; 
+trg_drift_23: drift, aper = 0.075, L = 0.60170041; 
+#D796_faraday cup1
+trg_drift_24: drift, aper = 0.075, L = 0.3528; 
+FE_LEBT:SOLR_D0802: solenoid, aper = 0.075, B = -0.20676, L = 0.4; 
+trg_drift_25: drift, aper = 0.075, L = 0.12065; 
+FE_LEBT:DCHV_D0805: orbtrim; 
+trg_drift_26: drift, aper = 0.075, L = 0.29888853; 
+#D808_profile monitor
+FE_LEBT:PM_D0808: bpm; 
+trg_drift_27: drift, aper = 0.075, L = 0.39539857; 
+#D812_pepper pot
+#D812_viewer
+trg_drift_28: drift, aper = 0.075, L = 0.20828; 
+#D814_faraday cup1
+trg_drift_29: drift, aper = 0.075, L = 0.216933; 
+FE_LEBT:SOLR_D0818: solenoid, aper = 0.075, B = -0.21636, L = 0.4; 
+trg_drift_30: drift, aper = 0.075, L = 0.1265; 
+FE_LEBT:DCHV_D0821: orbtrim; 
+trg_drift_31: drift, aper = 0.075, L = 0.27378293; 
+#D824_profile monitor
+FE_LEBT:PM_D0824: bpm; 
+trg_drift_32: drift, aper = 0.075, L = 0.40556807; 
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! D7 magnet 
+FE_LEBT:DVE_D0833: edipole, phi = 90.0, L = 1.0, beta = 0.0050758796841, asym_fac = 0.0, aper = 0.02, spher = 1.0, ver = 1.0, fringe_x = 0.0, fringe_y = 0.0; 
+trg_drift_33: drift, aper = 0.075, L = 0.215; 
+FE_LEBT:DCHV_D0840: orbtrim; 
+trg_drift_34: drift, aper = 0.075, L = 0.3327; 
+FE_LEBT:QHE_D0844: equad, aper = 0.075, L = 0.2046, radius = 0.0746, V = -1948.02365591; 
+trg_drift_35: drift, aper = 0.075, L = 0.1304; 
+FE_LEBT:QVE_D0848: equad, aper = 0.075, L = 0.2046, radius = 0.0746, V = 3956.08602151; 
+trg_drift_36: drift, aper = 0.075, L = 0.1304; 
+FE_LEBT:QHE_D0851: equad, aper = 0.075, L = 0.2046, radius = 0.0746, V = -2996.9827957; 
+trg_drift_37: drift, aper = 0.075, L = 0.3407157326; 
+#D856_profile monitor
+FE_LEBT:PM_D0856: bpm; 
+trg_drift_38: drift, aper = 0.075, L = 1.255734263; 
+FE_LEBT:DCHV_D0868: orbtrim; 
+trg_drift_39: drift, aper = 0.075, L = 0.1777; 
+FE_LEBT:QVE_D0871: equad, aper = 0.075, L = 0.2046, radius = 0.0746, V = 2445.71827957; 
+trg_drift_40: drift, aper = 0.075, L = 0.1304; 
+FE_LEBT:QHE_D0874: equad, aper = 0.075, L = 0.2046, radius = 0.0746, V = -4053.32043011; 
+trg_drift_41: drift, aper = 0.075, L = 0.1304; 
+FE_LEBT:QVE_D0878: equad, aper = 0.075, L = 0.2046, radius = 0.0746, V = 1205.01935484; 
+trg_drift_42: drift, aper = 0.075, L = 0.1777; 
+FE_LEBT:DCHV_D0880: orbtrim; 
+trg_drift_43: drift, aper = 0.075, L = 0.474729588; 
+#D885_profile monitor
+FE_LEBT:PM_D0885: bpm; 
+trg_drift_44: drift, aper = 0.075, L = 0.50297042; 
+FE_LEBT:QVE_D0891: equad, aper = 0.075, L = 0.2046, radius = 0.0746, V = 1205.01935484; 
+trg_drift_45: drift, aper = 0.075, L = 0.1304; 
+FE_LEBT:QHE_D0895: equad, aper = 0.075, L = 0.2046, radius = 0.0746, V = -4053.32043011; 
+trg_drift_46: drift, aper = 0.075, L = 0.1304; 
+FE_LEBT:QVE_D0898: equad, aper = 0.075, L = 0.2046, radius = 0.0746, V = 2445.71827957; 
+trg_drift_47: drift, aper = 0.075, L = 0.1777; 
+FE_LEBT:DCHV_D0901: orbtrim; 
+trg_drift_48: drift, aper = 0.075, L = 1.0934796; 
+#D912_profile monitor
+FE_LEBT:PM_D0912: bpm; 
+trg_drift_49: drift, aper = 0.075, L = 0.5029704; 
+FE_LEBT:QHE_D0918: equad, aper = 0.075, L = 0.2046, radius = 0.0746, V = -2996.9827957; 
+trg_drift_50: drift, aper = 0.075, L = 0.1304; 
+FE_LEBT:QVE_D0921: equad, aper = 0.075, L = 0.2046, radius = 0.0746, V = 3956.08602151; 
+trg_drift_51: drift, aper = 0.075, L = 0.1304; 
+FE_LEBT:QHE_D0924: equad, aper = 0.075, L = 0.2046, radius = 0.0746, V = -1948.02365591; 
+trg_drift_52: drift, aper = 0.075, L = 0.3327; 
+FE_LEBT:DCHV_D0929: orbtrim, xyrotate = 180.0; 
+trg_drift_53: drift, aper = 0.075, L = 0.215; 
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! D7 magnet 
+FE_LEBT:DVE_D0936: edipole, phi = 90.0, L = 1.0, beta = 0.0050758796841, asym_fac = 0.0, aper = 0.02, spher = 1.0, ver = 1.0, fringe_x = 0.0, fringe_y = 0.0; 
+trg_drift_54: drift, aper = 0.075, L = 0.40556806; 
+#D945_profile monitor
+FE_LEBT:PM_D0945: bpm; 
+trg_drift_55: drift, aper = 0.075, L = 0.27378294; 
+FE_LEBT:DCHV_D0948: orbtrim, theta_x = -0.0072, theta_y = -0.008; 
+trg_drift_56: drift, aper = 0.075, L = 0.12065; 
+FE_LEBT:SOLR_D0951: solenoid, aper = 0.075, B = -0.26164, L = 0.4; 
+trg_drift_57: drift, aper = 0.075, L = 0.820683; 
+#D961_profile monitor
+FE_LEBT:PM_D0961: bpm; 
+trg_drift_58: drift, aper = 0.075, L = 0.29881692; 
+FE_LEBT:DCHV_D0964: orbtrim; 
+trg_drift_59: drift, aper = 0.075, L = 0.12065; 
+#FE_LEBT:SOLR_D0967: solenoid, aper = 0.075, B = -0.33247, L = 0.4; 
+FE_LEBT:SOLR_D0967: solenoid, aper = 0.075, B = -0.31801, L = 0.4; 
+trg_drift_60: drift, aper = 0.075, L = 0.218551; 
+#D972_profile monitor
+FE_LEBT:PM_D0972: bpm; 
+trg_drift_61: drift, aper = 0.075, L = 0.51592912; 
+#D977_faraday cup1
+trg_drift_62: drift, aper = 0.075, L = 0.22002021; 
+FE_LEBT:DCHV_D0979: orbtrim; 
+trg_drift_63: drift, aper = 0.075, L = 0.12065; 
+#FE_LEBT:SOLR_D0982: solenoid, aper = 0.075, B = -0.38236, L = 0.4; 
+FE_LEBT:SOLR_D0982: solenoid, aper = 0.075, B = -0.37947, L = 0.4; 
+trg_drift_64: drift, aper = 0.075, L = 0.218551; 
+#D986_profile monitor
+FE_LEBT:PM_D0986: bpm; 
+trg_drift_65: drift, aper = 0.075, L = 0.569351; 
+FE_LEBT:DCHV_D0992: orbtrim; 
+trg_drift_66: drift, aper = 0.075, L = 0.12065; 
+FE_LEBT:SOLR_D0995: solenoid, aper = 0.075, B = -0.43365, L = 0.4; 
+trg_drift_67: drift, aper = 0.02, L = 0.075524; 
+#D998_faraday cup1
+#D998_fast faraday cup
+FE_LEBT:FFC_D0998: bpm; 
+trg_drift_68: drift, aper = 0.02, L = 0.0233172; 
+#D998_profile monitor
+FE_LEBT:PM_D0998: bpm; 
+trg_drift_69: drift, aper = 0.15, L = 0.1494091; 
+
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! LEBT end 
+#RFQ section
+trg_drift_70: drift, aper = 0.15, L = 0.03175; 
+
+
+trg: LINE = (
+#trg_drift_0, FE_SRC1:DCHV_D0695, trg_drift_1,
+FE_SRC1:SOLR_D0704, trg_drift_2, 
+FE_SRC1:DCHV_D0709, trg_drift_3, FE_SCS1:DH_D0717_1, FE_SCS1:DH_D0717_2, FE_SCS1:DH_D0717_3, 
+FE_SCS1:DH_D0717_4, FE_SCS1:DH_D0717_5, trg_drift_4, FE_SCS1:DCHV_D0723, trg_drift_5, 
+FE_SCS1:QHE_D0726, trg_drift_6, FE_SCS1:QVE_D0730, trg_drift_7, FE_SCS1:QHE_D0733, 
+trg_drift_8, trg_drift_9, trg_drift_10, trg_drift_11, FE_SCS1:QHE_D0743, 
+trg_drift_12, FE_SCS1:QVE_D0746, trg_drift_13, FE_SCS1:QHE_D0749, trg_drift_14, 
+FE_LEBT:DH_D0759_1, FE_LEBT:DH_D0759_2, FE_LEBT:DH_D0759_3, FE_LEBT:DH_D0759_4, FE_LEBT:DH_D0759_5, 
+trg_drift_15, FE_LEBT:QVE_D0767, trg_drift_16, FE_LEBT:QHE_D0770, trg_drift_17, 
+FE_LEBT:DCHV_D0773, trg_drift_18, FE_LEBT:QHE_D0776, trg_drift_19, FE_LEBT:QVE_D0780, 
+trg_drift_20, FE_LEBT:PM_D0783, trg_drift_21, FE_LEBT:SOLR_D0787, trg_drift_22, 
+FE_LEBT:DCHV_D0790, trg_drift_23, trg_drift_24, FE_LEBT:SOLR_D0802, trg_drift_25, 
+FE_LEBT:DCHV_D0805, trg_drift_26, FE_LEBT:PM_D0808, trg_drift_27, trg_drift_28, 
+trg_drift_29, FE_LEBT:SOLR_D0818, trg_drift_30, FE_LEBT:DCHV_D0821, trg_drift_31, 
+FE_LEBT:PM_D0824, trg_drift_32, FE_LEBT:DVE_D0833, trg_drift_33, FE_LEBT:DCHV_D0840, 
+trg_drift_34, FE_LEBT:QHE_D0844, trg_drift_35, FE_LEBT:QVE_D0848, trg_drift_36, 
+FE_LEBT:QHE_D0851, trg_drift_37, FE_LEBT:PM_D0856, trg_drift_38, FE_LEBT:DCHV_D0868, 
+trg_drift_39, FE_LEBT:QVE_D0871, trg_drift_40, FE_LEBT:QHE_D0874, trg_drift_41, 
+FE_LEBT:QVE_D0878, trg_drift_42, FE_LEBT:DCHV_D0880, trg_drift_43, FE_LEBT:PM_D0885, 
+trg_drift_44, FE_LEBT:QVE_D0891, trg_drift_45, FE_LEBT:QHE_D0895, trg_drift_46, 
+FE_LEBT:QVE_D0898, trg_drift_47, FE_LEBT:DCHV_D0901, trg_drift_48, FE_LEBT:PM_D0912, 
+trg_drift_49, FE_LEBT:QHE_D0918, trg_drift_50, FE_LEBT:QVE_D0921, trg_drift_51, 
+FE_LEBT:QHE_D0924, trg_drift_52, FE_LEBT:DCHV_D0929, trg_drift_53, FE_LEBT:DVE_D0936, 
+trg_drift_54, FE_LEBT:PM_D0945, trg_drift_55, FE_LEBT:DCHV_D0948, trg_drift_56, 
+FE_LEBT:SOLR_D0951, trg_drift_57);
+#, FE_LEBT:PM_D0961
+#trg_drift_58, FE_LEBT:DCHV_D0964, 
+#trg_drift_59, FE_LEBT:SOLR_D0967, trg_drift_60, FE_LEBT:PM_D0972, trg_drift_61, 
+#trg_drift_62, FE_LEBT:DCHV_D0979, trg_drift_63, FE_LEBT:SOLR_D0982, trg_drift_64, 
+#FE_LEBT:PM_D0986, trg_drift_65, FE_LEBT:DCHV_D0992, trg_drift_66, FE_LEBT:SOLR_D0995, 
+#trg_drift_67, FE_LEBT:FFC_D0998, trg_drift_68, FE_LEBT:PM_D0998, trg_drift_69, 
+#trg_drift_70 );
+
+cell: LINE= (S,trg);
+USE: cell;
